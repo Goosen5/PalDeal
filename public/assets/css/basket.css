@@ -1,0 +1,131 @@
+*{
+    box-sizing: border-box;
+}
+
+body { 
+    display: flex;
+    justify-content: center;
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+    background: #0f1923; 
+    color: #fff; 
+}
+
+.main-panel {
+    position: relative;
+    display :flex;
+    justify-content: center;
+    width: 32rem;
+    height: 47rem;
+    background: #1a2b3a;
+    border: 1px solid #33576f;
+    border-radius: 10px;
+    padding: 16px;
+    padding-top: 0;
+    margin-top: 5rem;
+
+}
+
+.count-diamond {
+    position:absolute;
+    top: -3rem;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    background: #1a2b3a;
+    border: 1px solid #33576f;
+    width: 10rem;
+    height: 10rem;
+    align-items: center;
+    border-radius: 10px;
+    transform: translateX(-50%) rotate(45deg);
+}   
+
+.count-diamond-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 70%;
+    font-size: 1.5rem;
+    background-color: #10202e;
+}
+
+.count{
+    transform: rotate(-45deg);
+    color: #fff;
+}
+
+.basket-items {
+    position: absolute;
+    top: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    background: #1a2b3a;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.basket-row {
+    width: 25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    background-color: #10202e;
+    border: 1px solid #33576f;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.separator {
+    position: absolute;
+    top: 25rem;
+    width: 90%;
+    height: 1px;
+    background: #33576f;
+    margin: 12px 0;
+}
+
+.total {
+    position: absolute;
+    top: 30rem;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 12px;
+}
+
+.checkout-button {
+    position: absolute;
+    top: 35rem;
+    background: #ff6b2d;
+    border: none;
+    color: #10202e;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.back-home-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    text-decoration: none;
+    background: #ff6b2d;
+    border: none;
+    color: #10202e;
+    padding: 9px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.arrow-left {
+    font-size: 24px;
+    color: #10202e;
+}

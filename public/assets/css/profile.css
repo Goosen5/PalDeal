@@ -1,0 +1,123 @@
+.example-bank-space {
+    background: #888;
+    display: inline-block;
+    border-radius: 8px;
+    width: 120px;
+    height: 180px;
+    box-shadow: 0 2px 8px #0002;
+}
+.profile-avatar.example-bank-space {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    background: #888;
+    border: 2px solid #3d85ab;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: #0f1923;
+    color: #fff;
+}
+.profile-main-panel {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 90vw;
+    margin: 3rem auto;
+    background: #1a2b3a;
+    border: 1px solid #33576f;
+    border-radius: 12px;
+    padding: 2rem;
+    min-height: 47rem;
+    max-height: 60vh;
+}
+.profile-section {
+    flex: 1;
+    background: #20384c;
+    border-radius: 10px;
+    margin: 0 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 30rem;
+}
+.profile-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.profile-user-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.profile-avatar {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    border: 2px solid #3d85ab;
+    background: #345167;
+}
+.profile-user-info {
+    text-align: center;
+    font-size: 1.2em;
+}
+.game-card {
+    background: #345167;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 15rem;
+    box-shadow: 0 2px 8px #0002;
+}
+.game-card img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 6px;
+    object-fit: cover;
+}
+.achievement-card {
+    background: #345167;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 15rem;
+    box-shadow: 0 2px 8px #0002;
+}
+.achievement-card img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.back-home-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    text-decoration: none;
+    background: #ff6b2d;
+    border: none;
+    color: #10202e;
+    padding: 9px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.arrow-left {
+    font-size: 24px;
+    color: #10202e;
+}
