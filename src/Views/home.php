@@ -8,21 +8,34 @@
 </head>
 <body>
     <header>
-        <div class="header-separator"> 
-            <!-- add profile button with profile.png icon on the right side of the header -->
-            <a class="profile-btn" href="/?page=profile" title="Profile">
-                <img src="/assets/images/user.png" alt="Profile">
-            </a>
+        <div class="header-separator">
+            <nav class="header-nav">
+                <a class="cart-btn" href="/?page=basket">Cart</a>
+                <a class="profile-btn" href="/?page=profile" title="Profile">
+                    <img src="/assets/images/user.png" alt="Profile">
+                </a>
+            </nav>
         </div>
     </header>
     <main>
         <div class="games-panel">
             <?php
-            $db = new PDO('sqlite:' . __DIR__ . '/../../database/paldeals.db');
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $stmt = $db->query('SELECT * FROM game');
-            $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            require_once BASE_PATH . '/src/Database.php';
+            $games = [];
+            $dbError = null;
+
+            try {
+                $games = Database::fetchAll('SELECT * FROM game');
+            } catch (Throwable $e) {
+                $dbError = $e->getMessage();
+            }
             ?>
+
+            <?php if ($dbError): ?>
+                <div class="error-messages">
+                    <p style="color: red;">Database error: <?= htmlspecialchars($dbError) ?></p>
+                </div>
+            <?php endif; ?>
 
             <div class="panel-toolbar">
                 <input id="searchInput" type="text" placeholder="Search games..." />
@@ -48,6 +61,7 @@
                 <?php foreach ($games as $index => $game): ?>
                     <div
                         class="game-card<?php echo $index === 0 ? ' active' : ''; ?>"
+                        data-id="<?php echo (int)($game['id'] ?? 0); ?>"
                         data-name="<?php echo htmlspecialchars($game['name'] ?? $game['title'] ?? ''); ?>"
                         data-platform="<?php echo htmlspecialchars($game['platform'] ?? ''); ?>"
                         data-price="<?php echo isset($game['price']) ? number_format($game['price'], 2) : '0.00'; ?>"
@@ -94,22 +108,13 @@
                     </ul>
 
                     <p id="detailDescription" class="detail-description"><?php echo htmlspecialchars($games[0]['description'] ?? ''); ?></p>
-                    <form id="addToLibraryForm" method="post">
+                    <form id="addToCartForm" method="post">
                         <input type="hidden" name="game_id" id="selectedGameId" value="<?php echo $games[0]['id'] ?? ''; ?>">
-                        <button class="buy-button" type="button" onclick="addToLibrary()">Add to Library</button>
+                        <button class="buy-button" type="button" onclick="addToCart()">Add to Cart</button>
                     </form>
 
                     <script>
-function addToLibrary() {
-    const gameId = document.getElementById('selectedGameId').value;
-    fetch('/?page=add_to_library', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'game_id=' + encodeURIComponent(gameId)
-    }).then(res => res.text()).then(data => {
-        alert('Added to library!');
-    });
-}
+
 </script>
 
                 <?php else: ?>
