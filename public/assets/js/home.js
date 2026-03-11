@@ -57,6 +57,21 @@ function applyFilters() {
     }
 }
 
+function addToCart() {
+    const gameId = document.getElementById('selectedGameId').value;
+    fetch('/?page=add_to_cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'game_id=' + encodeURIComponent(gameId)
+    }).then(res => res.text()).then(data => {
+        if (data.trim() === 'success') {
+            alert('Added to cart!');
+        } else {
+            alert('Could not add to cart.');
+        }
+    });
+}
+
 searchInput.addEventListener('input', applyFilters);
 platformFilter.addEventListener('change', applyFilters);
 developerFilter.addEventListener('change', applyFilters);

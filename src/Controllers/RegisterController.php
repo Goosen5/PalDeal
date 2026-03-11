@@ -1,15 +1,19 @@
 <?php
-class RegisterController {
-    public static function handle() {
-        $errors = [];
+require_once BASE_PATH . '/src/Database.php';
+
+class RegisterController
+{
+    public static function handle()
+    {
+        $errors  = [];
         $success = false;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = trim($_POST['username'] ?? '');
-            $email = trim($_POST['email'] ?? '');
-            $password = $_POST['password'] ?? '';
+            $username         = trim($_POST['username'] ?? '');
+            $email            = trim($_POST['email'] ?? '');
+            $password         = $_POST['password'] ?? '';
             $confirm_password = $_POST['confirm_password'] ?? '';
 
-            // Basic validation
             if (!$username || !$email || !$password || !$confirm_password) {
                 $errors[] = 'All fields are required.';
             }
@@ -23,25 +27,24 @@ class RegisterController {
                 $errors[] = 'Password must be at least 6 characters.';
             }
 
-            // If no errors, proceed
             if (empty($errors)) {
-                $db = new PDO('sqlite:' . __DIR__ . '/../../database/paldeals.db');
-                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $taken = (int) Database::fetchValue(
+                    'SELECT COUNT(*) FROM users WHERE username = :username OR email = :email',
+                    [':username' => $username, ':email' => $email]
+                );
 
-                // Check for existing user
-                $stmt = $db->prepare('SELECT COUNT(*) FROM users WHERE username = :username OR email = :email');
-                $stmt->execute([':username' => $username, ':email' => $email]);
-                if ($stmt->fetchColumn() > 0) {
+                if ($taken > 0) {
                     $errors[] = 'Username or email already exists.';
                 } else {
-                    // Hash password
-                    $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $db->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
-                    $stmt->execute([':username' => $username, ':email' => $email, ':password' => $hash]);
+                    Database::execute(
+                        'INSERT INTO users (username, email, password) VALUES (:username, :email, :password)',
+                        [':username' => $username, ':email' => $email, ':password' => password_hash($password, PASSWORD_DEFAULT)]
+                    );
                     $success = true;
                 }
             }
         }
+
         return ['errors' => $errors, 'success' => $success];
     }
 }
