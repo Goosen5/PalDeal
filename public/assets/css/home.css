@@ -1,0 +1,256 @@
+* { 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+    background: #0f1923; 
+    color: #fff; 
+}
+
+.header-separator { 
+    height: 2rem; 
+    background: #3d85ab; 
+    margin-bottom: 10px; 
+    background: linear-gradient(135deg, #345167, #20384c); 
+    width: 50%; 
+    border-radius: 15px; 
+}
+
+header { 
+    padding: 10px; 
+    align-items: center; 
+    display: flex; 
+    justify-content: center; 
+}
+
+main { 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+}
+
+.games-panel { 
+    width: 60%; 
+    height: 47rem; 
+    background: #1a2b3a; 
+    border: 1px solid #33576f; 
+    border-radius: 10px; 
+    padding: 16px; 
+    overflow: hidden; 
+}
+
+.selected-game { 
+    width: 40%; 
+    height: 47rem; 
+    background: #1a2b3a; 
+    border: 1px solid #33576f; 
+    border-radius: 10px; 
+    padding: 20px; 
+    overflow-y: auto; 
+}
+
+.panel-toolbar { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 14px; 
+}
+
+.panel-toolbar input,
+.panel-toolbar select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #3a627b;
+    background: #10202e;
+    color: #fff;
+}
+
+.game-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    gap: 12px; 
+    height: calc(100% - 58px); 
+    overflow-y: auto; 
+    padding-right: 4px; 
+}
+
+.game-card {
+    background: #10202e;
+    border: 1px solid #304f63;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: border-color .2s, transform .2s;
+}
+
+.game-card:hover {
+    border-color: #4ea1ce;
+    transform: scale(1.03);
+    z-index: 2;
+}
+
+.game-card.active { 
+    border-color: #ff6b2d; 
+}
+
+.card-top { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 10px; 
+}
+
+.badge-platform { 
+    font-size: 11px; 
+    background: #22445a; 
+    border: 1px solid #38647d; 
+    color: #c6e7ff; 
+    border-radius: 999px; 
+    padding: 3px 8px; 
+}
+
+.badge-discount { 
+    font-size: 12px; 
+    font-weight: bold; 
+    background: #ff6b2d; 
+    border-radius: 4px; 
+    padding: 3px 8px; 
+}
+
+.cover-placeholder {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #345167, #20384c);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.cover-placeholder img {
+    width: auto;
+    height: 100%;
+    max-width: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    background: #20384c;
+}
+
+.card-title { 
+    margin: 0 0 8px; 
+    font-size: 14px; 
+    line-height: 1.3; 
+}
+
+.card-prices { 
+    display: flex; 
+    gap: 8px; 
+    align-items: center; 
+}
+
+.price-current { 
+    color: #7fff6a; 
+    font-weight: bold; 
+    font-size: 18px; 
+}
+
+.price-old { 
+    color: #9bb6c9; 
+    text-decoration: line-through; 
+    font-size: 13px; 
+}
+
+.hero { 
+    height: 190px; 
+    border-radius: 8px; 
+    background: linear-gradient(135deg, #345167, #20384c); 
+    margin-bottom: 16px; 
+    display: flex; 
+    align-items: flex-end; 
+    padding: 14px; 
+}
+
+.hero-title { 
+    margin: 0; 
+    font-size: 24px; 
+}
+
+.detail-price-row { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    margin: 10px 0 16px; 
+}
+
+.detail-meta { 
+    margin: 0 0 16px; 
+    padding: 0; 
+    list-style: none; 
+}
+
+.detail-meta li { 
+    margin-bottom: 8px; 
+    color: #c6dae8; 
+}
+
+.detail-description { 
+    color: #d5e4ef; 
+    line-height: 1.5; 
+    margin-bottom: 18px; 
+}
+
+.buy-button { 
+    width: 100%; 
+    background: #ff6b2d; 
+    color: #fff; 
+    border: none; 
+    border-radius: 6px; 
+    padding: 13px; 
+    font-size: 17px; 
+    cursor: pointer; 
+}
+
+.buy-button:hover { 
+    background: #ff7e47; 
+}
+
+footer { 
+    margin-top: 20px; 
+    padding-top: 10px; 
+    align-items: center; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.profile-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #ff6b2d;
+    border: none;
+    color: #10202e;
+    padding: 9px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cart-button { 
+    width: 100%; 
+    margin-top: 2rem;
+    background: #ff6b2d; 
+    color: #fff; 
+    border: none; 
+    border-radius: 6px; 
+    padding: 13px; 
+    font-size: 17px; 
+    cursor: pointer; 
+}
+
+.cart-button:hover { 
+    background: #ff7e47; 
+}
