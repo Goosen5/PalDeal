@@ -11,6 +11,7 @@ const detailPlatform = document.getElementById('detailPlatform');
 const detailGenre = document.getElementById('detailGenre');
 const detailDeveloper = document.getElementById('detailDeveloper');
 const detailDescription = document.getElementById('detailDescription');
+const detailBgImage = document.getElementById('detailBgImage');
 
 function selectCard(card) {
     cards.forEach(item => item.classList.remove('active'));
@@ -24,6 +25,11 @@ function selectCard(card) {
     detailGenre.textContent = card.dataset.genre;
     detailDeveloper.textContent = card.dataset.developer;
     detailDescription.textContent = card.dataset.description;
+
+    // Update background image
+    if (detailBgImage && card.dataset.image) {
+        detailBgImage.src = card.dataset.image;
+    }
 
     // Update hidden input for Add to Library
     const selectedGameIdInput = document.getElementById('selectedGameId');
@@ -57,6 +63,21 @@ function applyFilters() {
     }
 }
 
+function showPopup(message) {
+    const existing = document.querySelector('.popup-notification');
+    if (existing) existing.remove();
+
+    const popup = document.createElement('div');
+    popup.className = 'popup-notification';
+    popup.innerHTML = `
+        <div class="popup-content">
+            <p>${message}</p>
+            <button onclick="this.closest('.popup-notification').remove()">OK</button>
+        </div>
+    `;
+    document.body.appendChild(popup);
+}
+
 function addToCart() {
     const gameId = document.getElementById('selectedGameId').value;
     fetch('/?page=add_to_cart', {
@@ -64,11 +85,8 @@ function addToCart() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'game_id=' + encodeURIComponent(gameId)
     }).then(res => res.text()).then(data => {
-        if (data.trim() === 'success') {
-            alert('Added to cart!');
-        } else {
-            alert('Could not add to cart.');
-        }
+        const message = data.trim() === 'success' ? 'Added to cart!' : 'Could not add to cart.';
+        showPopup(message);
     });
 }
 

@@ -70,20 +70,23 @@
                         data-genre="<?php echo htmlspecialchars($game['genre'] ?? ''); ?>"
                         data-developer="<?php echo htmlspecialchars($game['developer'] ?? ''); ?>"
                         data-description="<?php echo htmlspecialchars($game['description'] ?? ''); ?>"
+                        data-image="<?php echo !empty($game['image_url']) ? '/' . htmlspecialchars($game['image_url']) : ''; ?>"
                     >
-                        <div class="card-top">
-                            <span class="badge-platform"><?php echo htmlspecialchars($game['platform'] ?? ''); ?></span>
-                            <span class="badge-discount">-<?php echo isset($game['discount']) ? (int) $game['discount'] : 0; ?>%</span>
-                        </div>
                         <div class="cover-placeholder">
                             <?php if (!empty($game['image_url'])): ?>
-                                <img src="/<?php echo htmlspecialchars($game['image_url']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" style="width:100%;height:auto;">
+                                <img src="/<?php echo htmlspecialchars($game['image_url']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>">
                             <?php endif; ?>
                         </div>
-                        <h3 class="card-title"><?php echo htmlspecialchars($game['title'] ?? ''); ?></h3>
-                        <div class="card-prices">
-                            <span class="price-current">$<?php echo isset($game['price']) ? number_format($game['price'], 2) : '0.00'; ?></span>
-                            <span class="price-old">$<?php echo isset($game['old_price']) ? number_format($game['old_price'], 2) : '0.00'; ?></span>
+                        <div class="card-info">
+                            <div class="card-top">
+                                <span class="badge-platform"><?php echo htmlspecialchars($game['platform'] ?? ''); ?></span>
+                                <span class="badge-discount">-<?php echo isset($game['discount']) ? (int) $game['discount'] : 0; ?>%</span>
+                            </div>
+                            <h3 class="card-title"><?php echo htmlspecialchars($game['title'] ?? ''); ?></h3>
+                            <div class="card-prices">
+                                <span class="price-current">$<?php echo isset($game['price']) ? number_format($game['price'], 2) : '0.00'; ?></span>
+                                <span class="price-old">$<?php echo isset($game['old_price']) ? number_format($game['old_price'], 2) : '0.00'; ?></span>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -91,6 +94,10 @@
         </div>
             
         <div class="selected-game">
+                <div class="detail-bg">
+                    <img id="detailBgImage" src="<?php echo !empty($games[0]['image_url']) ? '/' . htmlspecialchars($games[0]['image_url']) : ''; ?>" alt="">
+                </div>
+                <div class="detail-content">
                 <?php if (!empty($games) && isset($games[0])): ?>
                     <div class="hero">
                         <h2 id="detailTitle" class="hero-title"><?php echo htmlspecialchars($games[0]['name'] ?? $games[0]['title'] ?? ''); ?></h2>
@@ -133,6 +140,7 @@
                     </ul>
                     <p id="detailDescription" class="detail-description"></p>
                 <?php endif; ?>
+                </div>
         </div>
     </main>
     <footer>

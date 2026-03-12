@@ -43,11 +43,12 @@ main {
     display: flex; 
     justify-content: center; 
     gap: 20px; 
+    height: 80vh;
 }
 
 .games-panel { 
-    width: 60%; 
-    height: 47rem; 
+    width: 85%; 
+    height: 80dvh; 
     background: #1a2b3a; 
     border: 1px solid #33576f; 
     border-radius: 10px; 
@@ -57,12 +58,50 @@ main {
 
 .selected-game { 
     width: 40%; 
-    height: 47rem; 
+    height: 80dvh; 
     background: #1a2b3a; 
     border: 1px solid #33576f; 
     border-radius: 10px; 
-    padding: 20px; 
-    overflow-y: auto; 
+    overflow: hidden;
+    position: relative;
+}
+
+.detail-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.detail-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px);
+    transform: scale(1.1);
+    opacity: 0.4;
+}
+
+.detail-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(26, 43, 58, 0.7) 0%, rgba(26, 43, 58, 0.95) 100%);
+}
+
+.detail-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .panel-toolbar { 
@@ -84,24 +123,44 @@ main {
 .game-grid { 
     display: grid; 
     grid-template-columns: repeat(2, minmax(0, 1fr)); 
-    gap: 12px; 
+    gap: 10px; 
     height: calc(100% - 58px); 
-    overflow-y: auto; 
-    padding-right: 4px; 
+    overflow-y: auto;
+    overflow-x: hidden; 
+    padding-right: 4px;
+    scroll-behavior: smooth;
+    align-content: start;
+}
+
+.game-grid::-webkit-scrollbar {
+    width: 10px;
+    background: #22364a;
+    border-radius: 8px;
+}
+
+.game-grid::-webkit-scrollbar-thumb {
+    background: #3d85ab;
+    border-radius: 8px;
+}
+
+.game-grid:hover::-webkit-scrollbar-thumb {
+    background: #2a5c7a;
 }
 
 .game-card {
     background: #10202e;
     border: 1px solid #304f63;
     border-radius: 8px;
-    padding: 12px;
+    padding: 14px;
     cursor: pointer;
     transition: border-color .2s, transform .2s;
+    display: flex;
+    gap: 14px;
 }
 
 .game-card:hover {
     border-color: #4ea1ce;
-    transform: scale(1.03);
+    transform: scale(1.02);
     z-index: 2;
 }
 
@@ -109,11 +168,38 @@ main {
     border-color: #ff6b2d; 
 }
 
+.cover-placeholder {
+    width: 100px;
+    min-width: 100px;
+    height: 140px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #345167, #20384c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.cover-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
 .card-top { 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    margin-bottom: 10px; 
+    margin-bottom: 8px; 
 }
 
 .badge-platform { 
@@ -126,44 +212,23 @@ main {
 }
 
 .badge-discount { 
-    font-size: 12px; 
+    font-size: 15px; 
     font-weight: bold; 
     background: #ff6b2d; 
     border-radius: 4px; 
     padding: 3px 8px; 
 }
 
-.cover-placeholder {
-    width: 100%;
-    height: 180px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #345167, #20384c);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.cover-placeholder img {
-    width: auto;
-    height: 100%;
-    max-width: 120px;
-    object-fit: cover;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    background: #20384c;
-}
-
 .card-title { 
-    margin: 0 0 8px; 
-    font-size: 14px; 
+    margin: 0 0 auto; 
+    font-size: 15px; 
+    font-weight: bold;
     line-height: 1.3; 
 }
 
 .card-prices { 
     display: flex; 
-    gap: 8px; 
+    gap: 6px; 
     align-items: center; 
 }
 
@@ -179,43 +244,67 @@ main {
     font-size: 13px; 
 }
 
+.game-card .price-current {
+    font-size: 16px;
+}
+
+.game-card .price-old {
+    font-size: 12px;
+}
+
 .hero { 
-    height: 190px; 
+    min-height: 120px;
     border-radius: 8px; 
-    background: linear-gradient(135deg, #345167, #20384c); 
     margin-bottom: 16px; 
     display: flex; 
     align-items: flex-end; 
-    padding: 14px; 
+    padding: 14px 0; 
 }
 
 .hero-title { 
     margin: 0; 
-    font-size: 24px; 
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
 .detail-price-row { 
     display: flex; 
     align-items: center; 
-    gap: 8px; 
-    margin: 10px 0 16px; 
+    gap: 12px; 
+    margin: 0 0 20px; 
+}
+
+.detail-price-row .badge-discount {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.detail-price-row .price-current {
+    font-size: 24px;
+}
+
+.detail-price-row .price-old {
+    font-size: 16px;
 }
 
 .detail-meta { 
-    margin: 0 0 16px; 
+    margin: 0 0 20px; 
     padding: 0; 
     list-style: none; 
 }
 
 .detail-meta li { 
-    margin-bottom: 8px; 
-    color: #c6dae8; 
+    margin-bottom: 10px; 
+    color: #c6dae8;
+    font-size: 15px;
 }
 
 .detail-description { 
     color: #d5e4ef; 
-    line-height: 1.5; 
-    margin-bottom: 18px; 
+    line-height: 1.6; 
+    margin-bottom: 18px;
+    flex: 1;
 }
 
 .buy-button { 
@@ -224,9 +313,10 @@ main {
     color: #fff; 
     border: none; 
     border-radius: 6px; 
-    padding: 13px; 
-    font-size: 17px; 
-    cursor: pointer; 
+    padding: 15px; 
+    font-size: 18px; 
+    cursor: pointer;
+    margin-top: auto;
 }
 
 .buy-button:hover { 
@@ -299,4 +389,46 @@ footer {
         font-size: 13px;
         padding: 4px 11px;
     }
+}
+
+/* Popup notification styles */
+.popup-notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: #1a2a38;
+    padding: 24px 32px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.popup-content p {
+    margin: 0 0 16px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.popup-content button {
+    background: #ff6b2d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 28px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background: #ff7e47;
 }
