@@ -15,29 +15,41 @@
             <a class="back-home-btn" href="/" title="Retour à l'accueil">
                 <span class="arrow-left">&#8592;</span>
             </a>
-            <div class="count-diamond"> <!--rotated div to act as a diamond--> 
-                <div class="count-diamond-inner"> 
-                    <span class="count"><?php echo count($cartGames ?? []); ?></span><!--inner div to rotate back the text-->
+            <div class="count-diamond">
+                <div class="count-diamond-inner">
+                    <span class="count"><?php echo count($cartGames ?? []); ?></span>
                 </div>
             </div>
             <div class="basket-items">
-                    <?php if (empty($cartGames)): ?>
-                        <div class="basket-row"><span>Your cart is empty.</span></div>
-                    <?php else: ?>
-                        <?php foreach ($cartGames as $game): ?>
-                            <div class="basket-row">
-                                <span><?php echo htmlspecialchars($game['name'] ?? $game['title'] ?? ''); ?></span>
+                <?php if (empty($cartGames)): ?>
+                    <div class="basket-row"><span>Your cart is empty.</span></div>
+                <?php else: ?>
+                    <?php foreach ($cartGames as $game): ?>
+                        <div class="basket-row">
+                            <span class="game-title"><?php echo htmlspecialchars($game['name'] ?? $game['title'] ?? ''); ?></span>
+                            <div class="basket-row-right">
                                 <span>$<?php echo isset($game['price']) ? number_format($game['price'], 2) : '0.00'; ?></span>
+                                <form method="POST" action="/?page=remove_from_cart">
+                                    <input type="hidden" name="game_id" value="<?php echo (int) $game['id']; ?>">
+                                    <button type="submit" class="remove-btn">&#x2715;</button>
+                                </form>
                             </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
             <div class="separator"></div>
             <div class="total">
                 <span>Total</span>
-                <span><?php echo '$' . number_format($total, 2); ?></span>
+                <span>$<?php echo number_format($total, 2); ?></span>
             </div>
-            <a href="/" class="checkout-button" style="display:inline-block; text-decoration:none; text-align:center;">Continue shopping</a>
+            <?php if (!empty($cartGames)): ?>
+                <form method="POST" action="/?page=checkout" class="checkout-form">
+                    <button type="submit" class="checkout-button">Checkout</button>
+                </form>
+            <?php else: ?>
+                <a href="/" class="checkout-button">Continue shopping</a>
+            <?php endif; ?>
         </div>
     </main>
 </body>

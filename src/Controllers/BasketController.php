@@ -51,6 +51,19 @@ class BasketController {
             ORDER BY bg.rowid DESC', [(int)$userId]);
     }
 
+    public static function removeFromCart($userId, $gameId) {
+        $basketId = Database::fetchValue('SELECT id FROM basket WHERE user_id = ? LIMIT 1', [(int)$userId]);
+
+        if (!$basketId) {
+            return;
+        }
+
+        Database::execute(
+            'DELETE FROM basket_game WHERE basket_id = ? AND game_id = ?',
+            [(int)$basketId, (int)$gameId]
+        );
+    }
+
     public static function clearCart($userId) {
         self::ensureBasketSchema();
 

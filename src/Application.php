@@ -38,8 +38,10 @@ class Application
             'basket'         => [$this, 'handleBasket'],
             'logout'         => [$this, 'handleLogout'],
             'admin'          => [$this, 'handleAdmin'],
-            'add_to_library' => [$this, 'handleAddToLibrary'],
-            'add_to_cart'    => [$this, 'handleAddToCart'],
+            'add_to_library'  => [$this, 'handleAddToLibrary'],
+            'add_to_cart'     => [$this, 'handleAddToCart'],
+            'remove_from_cart'=> [$this, 'handleRemoveFromCart'],
+            'checkout'        => [$this, 'handleCheckout'],
         ];
 
         isset($dispatch[$page]) ? $dispatch[$page]() : $this->loadView($page);
@@ -113,6 +115,46 @@ class Application
         }
         LibraryController::addToLibrary($user['id'], (int) $_POST['game_id']);
         echo 'success';
+        exit;
+    }
+
+    private function handleRemoveFromCart()
+    {
+        require_once BASE_PATH . '/src/Controllers/BasketController.php';
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['game_id'])) {
+            header('Location: /?page=basket');
+            exit;
+        }
+        $user = LoginController::getUser();
+        if (!isset($user['id'])) {
+            header('Location: /?page=login');
+            exit;
+        }
+        BasketController::removeFromCart((int) $user['id'], (int) $_POST['game_id']);
+        header('Location: /?page=basket');
+        exit;
+    }
+
+    private function handleCheckout()
+    {
+        require_once BASE_PATH . '/src/Controllers/BasketController.php';
+        require_once BASE_PATH . '/src/Controllers/LibraryController.php';
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: /?page=basket');
+            exit;
+        }
+        $user = LoginController::getUser();
+        if (!isset($user['id'])) {
+            header('Location: /?page=login');
+            exit;
+        }
+        $userId    = (int) $user['id'];
+        $cartGames = BasketController::getCartGames($userId);
+        foreach ($cartGames as $game) {
+            LibraryController::addToLibrary($userId, (int) $game['id']);
+        }
+        BasketController::clearCart($userId);
+        header('Location: /?page=profile');
         exit;
     }
 
