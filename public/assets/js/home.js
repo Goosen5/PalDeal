@@ -57,6 +57,21 @@ function applyFilters() {
     }
 }
 
+function showPopup(message) {
+    const existing = document.querySelector('.popup-notification');
+    if (existing) existing.remove();
+
+    const popup = document.createElement('div');
+    popup.className = 'popup-notification';
+    popup.innerHTML = `
+        <div class="popup-content">
+            <p>${message}</p>
+            <button onclick="this.closest('.popup-notification').remove()">OK</button>
+        </div>
+    `;
+    document.body.appendChild(popup);
+}
+
 function addToCart() {
     const gameId = document.getElementById('selectedGameId').value;
     fetch('/?page=add_to_cart', {
@@ -64,11 +79,8 @@ function addToCart() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'game_id=' + encodeURIComponent(gameId)
     }).then(res => res.text()).then(data => {
-        if (data.trim() === 'success') {
-            alert('Added to cart!');
-        } else {
-            alert('Could not add to cart.');
-        }
+        const message = data.trim() === 'success' ? 'Added to cart!' : 'Could not add to cart.';
+        showPopup(message);
     });
 }
 

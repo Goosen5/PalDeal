@@ -300,3 +300,45 @@ footer {
         padding: 4px 11px;
     }
 }
+
+/* Popup notification styles */
+.popup-notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: #1a2a38;
+    padding: 24px 32px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.popup-content p {
+    margin: 0 0 16px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.popup-content button {
+    background: #ff6b2d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 28px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background: #ff7e47;
+}
