@@ -72,8 +72,14 @@ class Application
     private function handleProfile()
     {
         require_once BASE_PATH . '/src/Controllers/LibraryController.php';
-        $user    = LoginController::getUser();
-        $library = isset($user['id']) ? LibraryController::getLibrary($user['id']) : [];
+        require_once BASE_PATH . '/src/Controllers/AchievementController.php';
+        $user         = LoginController::getUser();
+        $library      = isset($user['id']) ? LibraryController::getLibrary($user['id']) : [];
+        $achievements = isset($user['id']) ? AchievementController::getUserAchievements((int) $user['id']) : [];
+        isset($user['id']) && AchievementController::syncLibraryAchievements((int) $user['id']);
+        $score  = count($library) * 2 + count($achievements) * 3;
+        $level  = 1 + intdiv($score, 5);
+        $xpPct  = ($score % 5) * 20;
         require_once BASE_PATH . '/src/Views/profile.php';
     }
 
@@ -139,6 +145,7 @@ class Application
     {
         require_once BASE_PATH . '/src/Controllers/BasketController.php';
         require_once BASE_PATH . '/src/Controllers/LibraryController.php';
+        require_once BASE_PATH . '/src/Controllers/AchievementController.php';
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /?page=basket');
             exit;
@@ -153,6 +160,7 @@ class Application
         foreach ($cartGames as $game) {
             LibraryController::addToLibrary($userId, (int) $game['id']);
         }
+        AchievementController::syncLibraryAchievements($userId);
         BasketController::clearCart($userId);
         header('Location: /?page=profile');
         exit;
