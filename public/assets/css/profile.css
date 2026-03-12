@@ -1,26 +1,13 @@
-.example-bank-space {
-    background: #888;
-    display: inline-block;
-    border-radius: 8px;
-    width: 120px;
-    height: 180px;
-    box-shadow: 0 2px 8px #0002;
-}
-.profile-avatar.example-bank-space {
-    width: 7rem;
-    height: 7rem;
-    border-radius: 50%;
-    background: #888;
-    border: 2px solid #3d85ab;
-}
 * {
     box-sizing: border-box;
 }
+
 body {
     font-family: Arial, sans-serif;
     background: #0f1923;
     color: #fff;
 }
+
 .profile-main-panel {
     display: flex;
     justify-content: center;
@@ -32,8 +19,8 @@ body {
     border-radius: 12px;
     padding: 2rem;
     min-height: 47rem;
-    max-height: 60vh;
 }
+
 .profile-section {
     flex: 1;
     background: #20384c;
@@ -44,64 +31,11 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 30rem;
+    overflow-y: auto;
 }
+
 .profile-center {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-}
-.profile-user-data {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-.profile-avatar {
-    width: 7rem;
-    height: 7rem;
-    border-radius: 50%;
-    border: 2px solid #3d85ab;
-    background: #345167;
-}
-.profile-user-info {
-    text-align: center;
-    font-size: 1.2em;
-}
-.game-card {
-    background: #345167;
-    border-radius: 8px;
-    margin: 0.5rem 0;
-    padding: 0.7rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    max-width: 15rem;
-    box-shadow: 0 2px 8px #0002;
-}
-.game-card img {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 6px;
-    object-fit: cover;
-}
-.achievement-card {
-    background: #345167;
-    border-radius: 8px;
-    margin: 0.5rem 0;
-    padding: 0.7rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    max-width: 15rem;
-    box-shadow: 0 2px 8px #0002;
-}
-.achievement-card img {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 6px;
-    object-fit: cover;
 }
 
 .back-home-btn {
@@ -120,4 +54,192 @@ body {
 .arrow-left {
     font-size: 24px;
     color: #10202e;
+}
+
+.profile-user-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-avatar {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    border: 2px solid #3d85ab;
+    background: #345167;
+}
+
+.example-bank-space {
+    background: #888;
+    display: inline-block;
+    border-radius: 8px;
+    width: 120px;
+    height: 180px;
+    box-shadow: 0 2px 8px #0002;
+}
+
+.profile-avatar.example-bank-space {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    background: #888;
+    border: 2px solid #3d85ab;
+}
+
+.profile-user-info {
+    text-align: center;
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.profile-admin-btn {
+    display: inline-block;
+    background: #3d85ab;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.profile-admin-btn:hover {
+    background: #2e6a8a;
+}
+
+.profile-logout-btn {
+    background: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.profile-logout-btn:hover {
+    background: #b52b27;
+}
+
+.profile-library-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.profile-library-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: #345167;
+    border-radius: 8px;
+    padding: 0.9rem;
+    width: 100%;
+    box-shadow: 0 2px 6px #0003;
+}
+
+.game-library-cover {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 6px;
+    background-color: #1e3347;
+    flex-shrink: 0;
+}
+
+.game-library-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.game-library-title {
+    font-weight: bold;
+    font-size: 0.95em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.game-library-meta {
+    font-size: 0.78em;
+    color: #8ab4cc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.library-empty-msg {
+    text-align: center;
+    color: #7aabcc;
+    font-size: 0.95em;
+    margin-top: 2rem;
+    line-height: 1.6;
+}
+
+.game-card,
+.achievement-card {
+    background: #345167;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 15rem;
+    box-shadow: 0 2px 8px #0002;
+}
+
+.game-card img,
+.achievement-card img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+@media (max-width: 900px) {
+    .profile-main-panel {
+        flex-wrap: wrap;
+        min-height: unset;
+        padding: 1.5rem 1rem;
+        gap: 1rem;
+    }
+
+    .profile-section {
+        flex: 1 1 calc(50% - 1rem);
+        margin: 0;
+        min-height: 15rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-main-panel {
+        width: 95vw;
+        margin: 1.5rem auto;
+        padding: 1rem 0.75rem;
+    }
+
+    .profile-section {
+        flex: 1 1 100%;
+        min-height: unset;
+    }
+
+    .back-home-btn {
+        position: static;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
 }
