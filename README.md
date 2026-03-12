@@ -1,112 +1,153 @@
 
-# PalDeals
+# PalDeals - Game Store Website
 
-PalDeals is a simple web application for managing a game library, inspired by e-commerce platforms like Amazon. Users can browse games, add them directly to their personal library, and view their collection on their profile page. The project is built with PHP, SQLite, and follows a basic MVC structure.
+Welcome! **PalDeals** is a website where you can browse video games and build your personal game library, just like online stores such as Steam or Epic Games.
 
-## Features
+## What Can You Do?
 
-- **Game Listing:** Browse available games on the home page.
-- **Add to Library:** Add games to your personal library with a single click.
-- **Profile Page:** View all games in your library.
-- **Database Management:** Uses SQLite for storing users, games, and user-game relationships.
-- **MVC Structure:** Organized into Models, Views, and Controllers for maintainability.
+- **Browse Games** - See all available games with prices and details
+- **Add to Cart** - Click the "Add to Cart" button to purchase games
+- **Create Account** - Sign up and set up your profile
+- **Manage Your Library** - Keep track of games you've purchased
+- **Search & Filter** - Find games by name, platform, or developer
+
+---
+
+## Requirements (What You Need)
+
+Before you start, make sure you have these installed on your computer:
+
+### **Option 1: Easy Setup (Recommended)**
+You only need **PHP** and nothing else!
+
+### **Option 2: Manual Setup**
+- **PHP** (download from php.net or use your system package manager)
+- **SQLite** (comes with most systems)
+- **Composer** (optional, for managing PHP libraries)
+
+**Don't know if you have PHP?** Open your terminal/command prompt and type:
+```
+php -v
+```
+If you see a version number, you're good to go!
+
+---
+
+## How to Run (Step by Step)
+
+### **Step 1: Download the Project**
+
+Get the project files from GitHub or download the ZIP file. Extract it to a folder on your computer.
+
+### **Step 2: Open Terminal/Command Prompt**
+
+- **Windows:** Right-click in the project folder → "Open PowerShell here" or "Open Command Prompt here"
+- **Mac/Linux:** Open Terminal and navigate to the project folder with: `cd path/to/PalDeals`
+
+### **Step 3: Set Up the Database**
+
+Copy the configuration file:
+```bash
+copy config/example.config.php config/config.php
+```
+(On Mac/Linux, use `cp` instead of `copy`)
+
+### **Step 4: Start the Server**
+
+Run this command in your terminal:
+```bash
+php -S localhost:3000 -t public
+```
+
+You should see a message saying the server is running.
+
+### **Step 5: Open the Website**
+
+Open your web browser and go to:
+```
+http://localhost:3000
+```
+
+You should see the PalDeals homepage with games!
+
+---
+
+## How to Use the Website
+
+### **Home Page**
+1. See all available games
+2. Click on a game to view details
+3. Click **"Add to Cart"** to purchase
+
+### **Cart Page**
+Click the **"Cart"** button in the top right to see your purchases
+
+### **Profile Page**
+Click the **profile icon** (👤) in the top right to view your library
+
+---
+
+## If Something Goes Wrong
+
+### **"Command not found: php"**
+→ PHP is not installed. Download and install it from [php.net](https://www.php.net/downloads)
+
+### **"Port 3000 is already in use"**
+→ Change the port number in the command:
+```bash
+php -S localhost:3001 -t public
+```
+Then visit `http://localhost:3001`
+
+### **"Database error" on the website**
+→ The database hasn't been set up. Contact a developer or follow the "Advanced Setup" section below.
+
+---
+
+## Advanced Setup (If You Know What You're Doing)
+
+If you're familiar with terminal commands:
+
+```bash
+# Install dependencies
+composer install
+
+# Initialize the database (SQLite)
+sqlite3 database/paldeals.db < database/schema.sqlite.sql
+
+# Run the development server
+php -S localhost:3000 -t public
+```
+
+---
 
 ## Project Structure
 
 ```
 PalDeals/
-├── composer.json
-├── README.md
-├── config/
-│   ├── config.php
-│   └── example.config.php
-├── database/
-│   ├── paldeals.db
-│   ├── schema.sqlite.sql
-│   ├── migrations/
-│   └── seeders/
-├── public/
-│   ├── index.php
-│   └── assets/
-│       ├── css/
-│       ├── images/
-│       └── js/
-├── src/
-│   ├── Application.php
-│   ├── Controllers/
-│   ├── Models/
-│   └── Views/
+├── public/              ← Website files (CSS, JavaScript, images)
+├── src/                 ← Core application code
+│   ├── Controllers/     ← Handles user actions
+│   └── Views/           ← Website pages
+├── database/            ← Database files
+├── config/              ← Configuration settings
+└── README.md           ← This file!
 ```
 
-## Setup Instructions
+---
 
-1. **Clone the repository:**
-	```bash
-	git clone <repo-url>
-	cd PalDeals
-	```
+## Support
 
-2. **Install dependencies:**
-	If you use Composer for PHP dependencies:
-	```bash
-	composer install
-	```
+If you encounter issues:
+1. Make sure you followed all steps in "How to Run"
+2. Check that PHP is installed: `php -v`
+3. Make sure the terminal is in the correct folder
+4. Try using a different port (3001, 3002, etc.) if you get a "port in use" error
 
-3. **Configure the database:**
-	- The default database is SQLite. The schema is defined in `database/schema.sqlite.sql`.
-	- To initialize the database:
-	  ```bash
-	  sqlite3 database/paldeals.db < database/schema.sqlite.sql
-	  ```
-	- Seeders and migrations are available in `database/seeders/` and `database/migrations/`.
-
-4. **Configure the application:**
-	- Copy `config/example.config.php` to `config/config.php` and update settings as needed.
-
-5. **Run the application:**
-	- Use PHP's built-in server for local development:
-	  ```bash
-	  php -S localhost:8000 -t public
-	  ```
-	- Visit [http://localhost:8000](http://localhost:8000) in your browser.
-
-## Usage
-
-- **Home Page:**
-  - Lists all available games.
-  - Click "Add to Library" to add a game to your profile.
-
-- **Profile Page:**
-  - Shows all games you have added to your library.
-
-## Database Schema
-
-- **users**: Stores user information.
-- **games**: Stores game details (title, image, etc).
-- **user_game**: Maps users to games in their library.
-
-## MVC Overview
-
-- **Controllers:** Handle requests and business logic (e.g., `LoginController`, `LibraryController`).
-- **Models:** Represent data and interact with the database.
-- **Views:** Render HTML pages (e.g., `home.php`, `profile.php`).
-
-## Customization
-
-- Add new games by updating the `games` table or using seeders.
-- Modify styles in `public/assets/css/`.
-- Update views in `src/Views/` for custom layouts.
-
-## Troubleshooting
-
-- If you see database errors, ensure `paldeals.db` is created and matches the schema.
-- Check file permissions for the `database/` folder.
-- Review logs for PHP errors in your web server or terminal.
+---
 
 ## License
 
-This project is for educational purposes. See LICENSE for details.
+This project is for educational purposes.
 
-## Credits
-
-Developed by Ynov students. Inspired by e-commerce and game library platforms.
+Enjoy browsing games!
