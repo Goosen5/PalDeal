@@ -73,13 +73,13 @@ class Application
     {
         require_once BASE_PATH . '/src/Controllers/LibraryController.php';
         require_once BASE_PATH . '/src/Controllers/AchievementController.php';
-        $user    = LoginController::getUser();
-        $library = isset($user['id']) ? LibraryController::getLibrary($user['id']) : [];
-        $achievements = [];
-        if (isset($user['id'])) {
-            AchievementController::syncLibraryAchievements((int) $user['id']);
-            $achievements = AchievementController::getUserAchievements((int) $user['id']);
-        }
+        $user         = LoginController::getUser();
+        $library      = isset($user['id']) ? LibraryController::getLibrary($user['id']) : [];
+        $achievements = isset($user['id']) ? AchievementController::getUserAchievements((int) $user['id']) : [];
+        isset($user['id']) && AchievementController::syncLibraryAchievements((int) $user['id']);
+        $score  = count($library) * 2 + count($achievements) * 3;
+        $level  = 1 + intdiv($score, 5);
+        $xpPct  = ($score % 5) * 20;
         require_once BASE_PATH . '/src/Views/profile.php';
     }
 
