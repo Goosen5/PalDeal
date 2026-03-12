@@ -100,12 +100,34 @@ class Application
 
     private function handleAdmin()
     {
+        require_once BASE_PATH . '/src/Controllers/GameAdminController.php';
         $user = LoginController::getUser();
         if (($user['is_admin'] ?? 0) != 1) {
             header('Location: /?page=profile');
             exit;
         }
-        $this->loadView('admin');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $action = $_POST['admin_action'] ?? '';
+
+            if ($action === 'create_game') {
+                GameAdminController::create($_POST);
+            }
+
+            if ($action === 'update_game' && isset($_POST['id'])) {
+                GameAdminController::update((int) $_POST['id'], $_POST);
+            }
+
+            if ($action === 'delete_game' && isset($_POST['id'])) {
+                GameAdminController::delete((int) $_POST['id']);
+            }
+
+            header('Location: /?page=admin');
+            exit;
+        }
+
+        $games = GameAdminController::all();
+        require_once BASE_PATH . '/src/Views/admin.php';
     }
 
     private function handleAddToLibrary()
