@@ -130,6 +130,10 @@ body {
     gap: 2rem;
     margin-bottom: 1.5rem;
 }
+
+.user-row {
+    align-items: flex-start;
+}
 .game-row:hover, .user-row:hover {
     border-color: #4ea1ce;
     transform: translateY(-1px);
@@ -155,14 +159,16 @@ body {
     background: #2a5c7a;
 }
 /* Add form styling */
-#add-game-form {
+#add-game-form,
+#add-user-form {
     display: flex;
     gap: 0.7rem;
     margin-bottom: 2rem;
     align-items: flex-end;
     flex-direction: column;
 }
-#add-game-form input, #add-game-form textarea {
+#add-game-form input, #add-game-form textarea,
+#add-user-form input, #add-user-form textarea {
     background: #22364a;
     color: #fff;
     border: 1px solid #33576f;
@@ -170,7 +176,8 @@ body {
     padding: 0.5rem;
     font-size: 1em;
 }
-#add-game-form select {
+#add-game-form select,
+#add-user-form select {
     background: #22364a;
     color: #fff;
     border: 1px solid #33576f;
@@ -181,7 +188,10 @@ body {
 
 .game-row form input,
 .game-row form textarea,
-.game-row form select {
+.game-row form select,
+.user-row form input,
+.user-row form textarea,
+.user-row form select {
     background: #22364a;
     color: #fff;
     border: 1px solid #33576f;
@@ -191,7 +201,8 @@ body {
     width: 100%;
 }
 
-.game-row form textarea {
+.game-row form textarea,
+.user-row form textarea {
     resize: vertical;
 }
 
@@ -219,7 +230,8 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .game-row {
+    .game-row,
+    .user-row {
         flex-direction: column;
         align-items: stretch;
     }
@@ -231,7 +243,8 @@ body {
         align-self: center;
     }
 }
-#add-game-form button {
+#add-game-form button,
+#add-user-form button {
     background: #3d85ab;
     color: #fff;
     border: none;
@@ -241,6 +254,7 @@ body {
     cursor: pointer;
     transition: background 0.2s;
 }
-#add-game-form button:hover {
+#add-game-form button:hover,
+#add-user-form button:hover {
     background: #2a5c7a;
 }

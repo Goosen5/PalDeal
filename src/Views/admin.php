@@ -72,6 +72,48 @@
 
 	<div class="admin-section" id="admin-users">
 		<div class="admin-title">Users</div>
+
+		<form id="add-user-form" method="POST" action="/?page=admin" style="margin-bottom:1rem; flex-wrap:wrap;">
+			<input type="hidden" name="admin_action" value="create_user">
+			<div class="admin-form-grid">
+				<label class="admin-field">Username<input type="text" name="username" required></label>
+				<label class="admin-field">Email<input type="email" name="email" required></label>
+				<label class="admin-field">Password<input type="password" name="password" required></label>
+				<label class="admin-field">Role
+					<select name="is_admin" required>
+						<option value="0">User</option>
+						<option value="1">Admin</option>
+					</select>
+				</label>
+			</div>
+			<button type="submit">Ajouter</button>
+		</form>
+
+		<?php foreach ($users as $managedUser): ?>
+			<div class="user-row">
+				<form method="POST" action="/?page=admin" style="display:flex; flex-direction:column; gap:0.4rem; min-width:260px; width:100%;">
+					<input type="hidden" name="admin_action" value="update_user">
+					<input type="hidden" name="id" value="<?= (int) ($managedUser['id'] ?? 0) ?>">
+					<div class="admin-form-grid">
+						<label class="admin-field">Username<input type="text" name="username" value="<?= htmlspecialchars($managedUser['username'] ?? '') ?>" required></label>
+						<label class="admin-field">Email<input type="email" name="email" value="<?= htmlspecialchars($managedUser['email'] ?? '') ?>" required></label>
+						<label class="admin-field">Password<input type="password" name="password" required></label>
+						<label class="admin-field">Role
+							<select name="is_admin" required>
+								<option value="0" <?= (($managedUser['is_admin'] ?? 0) == 0) ? 'selected' : '' ?>>User</option>
+								<option value="1" <?= (($managedUser['is_admin'] ?? 0) == 1) ? 'selected' : '' ?>>Admin</option>
+							</select>
+						</label>
+					</div>
+					<button type="submit">Modifier</button>
+				</form>
+				<form method="POST" action="/?page=admin" style="align-self:flex-start;">
+					<input type="hidden" name="admin_action" value="delete_user">
+					<input type="hidden" name="id" value="<?= (int) ($managedUser['id'] ?? 0) ?>">
+					<button type="submit">Supprimer</button>
+				</form>
+			</div>
+		<?php endforeach; ?>
 	</div>
 </div>
 </body>

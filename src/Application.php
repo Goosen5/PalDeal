@@ -101,6 +101,7 @@ class Application
     private function handleAdmin()
     {
         require_once BASE_PATH . '/src/Controllers/GameAdminController.php';
+        require_once BASE_PATH . '/src/Controllers/UserAdminController.php';
         $user = LoginController::getUser();
         if (($user['is_admin'] ?? 0) != 1) {
             header('Location: /?page=profile');
@@ -122,11 +123,24 @@ class Application
                 GameAdminController::delete((int) $_POST['id']);
             }
 
+            if ($action === 'create_user') {
+                UserAdminController::create($_POST);
+            }
+
+            if ($action === 'update_user' && isset($_POST['id'])) {
+                UserAdminController::update((int) $_POST['id'], $_POST);
+            }
+
+            if ($action === 'delete_user' && isset($_POST['id'])) {
+                UserAdminController::delete((int) $_POST['id']);
+            }
+
             header('Location: /?page=admin');
             exit;
         }
 
         $games = GameAdminController::all();
+        $users = UserAdminController::all();
         require_once BASE_PATH . '/src/Views/admin.php';
     }
 
