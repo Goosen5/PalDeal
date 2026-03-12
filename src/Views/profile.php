@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="assets/css/profile.css">
-<script src="assets/js/profile.js"></script>
 
 <div class="profile-main-panel">
     <a class="back-home-btn" href="/" title="Retour à l'accueil">
@@ -45,5 +44,21 @@
 
     <div class="profile-section" id="profile-achievements">
         <h2>Succes</h2>
+        <?php if (!empty($achievements)): ?>
+            <ul class="profile-library-list">
+                <?php foreach ($achievements as $achievement): ?>
+                    <li class="achievement-card">
+                        <div class="example-bank-space"></div>
+                        <div>
+                            <strong><?= htmlspecialchars($achievement['name']) ?></strong>
+                            <br>
+                            <span><?= htmlspecialchars($achievement['description'] ?? '') ?></span>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p class="library-empty-msg">Aucun succes debloque pour le moment.</p>
+        <?php endif; ?>
     </div>
 </div>

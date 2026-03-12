@@ -72,8 +72,14 @@ class Application
     private function handleProfile()
     {
         require_once BASE_PATH . '/src/Controllers/LibraryController.php';
+        require_once BASE_PATH . '/src/Controllers/AchievementController.php';
         $user    = LoginController::getUser();
         $library = isset($user['id']) ? LibraryController::getLibrary($user['id']) : [];
+        $achievements = [];
+        if (isset($user['id'])) {
+            AchievementController::syncLibraryAchievements((int) $user['id']);
+            $achievements = AchievementController::getUserAchievements((int) $user['id']);
+        }
         require_once BASE_PATH . '/src/Views/profile.php';
     }
 
@@ -139,6 +145,7 @@ class Application
     {
         require_once BASE_PATH . '/src/Controllers/BasketController.php';
         require_once BASE_PATH . '/src/Controllers/LibraryController.php';
+        require_once BASE_PATH . '/src/Controllers/AchievementController.php';
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /?page=basket');
             exit;
@@ -153,6 +160,7 @@ class Application
         foreach ($cartGames as $game) {
             LibraryController::addToLibrary($userId, (int) $game['id']);
         }
+        AchievementController::syncLibraryAchievements($userId);
         BasketController::clearCart($userId);
         header('Location: /?page=profile');
         exit;
