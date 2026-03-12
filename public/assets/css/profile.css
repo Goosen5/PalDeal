@@ -2,10 +2,18 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: #0f1923;
     color: #fff;
+    margin: 0;
+    height: 100dvh;
 }
 
 .profile-main-panel {
@@ -13,12 +21,17 @@ body {
     justify-content: center;
     gap: 2rem;
     width: 90vw;
-    margin: 3rem auto;
+    margin: 1rem auto;
     background: #1a2b3a;
     border: 1px solid #33576f;
     border-radius: 12px;
     padding: 2rem;
-    min-height: 47rem;
+    height: calc(100dvh - 2rem);
+    overflow: hidden;
+}
+
+.profile-main-panel {
+    position: relative;
 }
 
 .profile-section {
@@ -38,7 +51,8 @@ body {
     justify-content: flex-start;
     align-items: stretch;
     padding: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     gap: 0;
 }
 
@@ -417,35 +431,66 @@ body {
 }
 
 @media (max-width: 900px) {
+    html,
+    body {
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
     .profile-main-panel {
         flex-wrap: wrap;
-        min-height: unset;
-        padding: 1.5rem 1rem;
+        padding: 3.5rem 1rem 1.5rem;
         gap: 1rem;
+        margin: 0.75rem auto;
+        height: auto;
+        min-height: calc(100dvh - 1.5rem);
     }
 
     .profile-section {
-        flex: 1 1 calc(50% - 1rem);
+        min-height: unset;
+    }
+
+    .profile-center {
+        flex: 1 1 100%;
+        order: -1;
+    }
+
+    .profile-section:not(.profile-center) {
+        flex: 1 1 calc(50% - 0.5rem);
         margin: 0;
-        min-height: 15rem;
     }
 }
 
 @media (max-width: 600px) {
     .profile-main-panel {
         width: 95vw;
-        margin: 1.5rem auto;
+        margin: 0.5rem auto;
         padding: 1rem 0.75rem;
+        gap: 0.75rem;
+        min-height: calc(100dvh - 1rem);
     }
 
-    .profile-section {
+    .profile-section:not(.profile-center) {
         flex: 1 1 100%;
-        min-height: unset;
     }
 
     .back-home-btn {
         position: static;
         display: inline-block;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        align-self: flex-start;
+    }
+
+    .pw-level-badge {
+        font-size: 1.2rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .pw-avatar-img {
+        width: 4.5rem;
+        height: 4.5rem;
     }
 }

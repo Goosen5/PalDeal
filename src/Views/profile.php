@@ -1,5 +1,12 @@
-<link rel="stylesheet" href="assets/css/profile.css">
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= APP_NAME ?? 'PalDeals' ?> &mdash; Profil</title>
+    <link rel="stylesheet" href="/assets/css/profile.css">
+</head>
+<body>
 <div class="profile-main-panel">
     <a class="back-home-btn" href="/" title="Retour à l'accueil">
         <span class="arrow-left">&#8592;</span>
@@ -92,3 +99,5 @@
         <?php endif; ?>
     </div>
 </div>
+</body>
+</html>
