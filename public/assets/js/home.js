@@ -11,6 +11,7 @@ const detailPlatform = document.getElementById('detailPlatform');
 const detailGenre = document.getElementById('detailGenre');
 const detailDeveloper = document.getElementById('detailDeveloper');
 const detailDescription = document.getElementById('detailDescription');
+const detailBgImage = document.getElementById('detailBgImage');
 
 function selectCard(card) {
     cards.forEach(item => item.classList.remove('active'));
@@ -24,6 +25,11 @@ function selectCard(card) {
     detailGenre.textContent = card.dataset.genre;
     detailDeveloper.textContent = card.dataset.developer;
     detailDescription.textContent = card.dataset.description;
+
+    // Update background image
+    if (detailBgImage && card.dataset.image) {
+        detailBgImage.src = card.dataset.image;
+    }
 
     // Update hidden input for Add to Library
     const selectedGameIdInput = document.getElementById('selectedGameId');
