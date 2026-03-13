@@ -1,0 +1,18 @@
+vendor/
+node_modules/
+.env
+.DS_Store
+Thumbs.db
+*.log
+tmp/
+cache/
+config/config.php
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE/editor
+.vscode/
+.idea/

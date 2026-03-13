@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "PalDeals",
+            "group": "PalDealsGroup",
+            "database": "database/database.db"
+        }
+    ]
+}
